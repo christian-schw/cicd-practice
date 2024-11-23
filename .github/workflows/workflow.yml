@@ -1,0 +1,20 @@
+---
+name: CI workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+
+    # It's important to consistently use same version of 
+    # dependencies and operating system for all phases of development 
+    # including CI pipeline --> Project developed on Python 3.9!
+    container: python:3.9-slim
