@@ -88,6 +88,10 @@ The name of the workflow as well as the events, the job and the runner including
 
 ![Implement empty workflow](https://github.com/user-attachments/assets/d3d3f45d-a6e6-4123-ba7c-97f773486752)
 
+If you check the Actions tab on the GitHub website, you will see failed workflows, as the workflow has been triggered but not yet fully implemented.
+
+![Failed workflows](https://github.com/user-attachments/assets/c0988e0a-4227-4744-bcfa-7da8ee302a27)
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <br>
 <br>
