@@ -21,6 +21,7 @@
       <a href="#what-i-have-done-as-part-of-the-project">What I have done as part of the project</a></li>
       <ul>
         <li><a href="#setup-of-github-actions-and-creation-of-workflow-yaml-file">Setup of GitHub Actions and creation of workflow YAML file</a></li>
+        <li><a href="#implementing-workflow-steps">Implementing workflow steps</a></li>
       </ul>
     </li>
     <li><a href="#getting-started">Getting Started</a></li>
@@ -77,10 +78,6 @@ TODO: Insert Tech Stack
 
 
 ## What I have done as part of the project
-TODO: Maybe delete two lines below.<br>
-As a lot of the work was done in the terminal, it is not visible in the repository.<br>
-I therefore explain my completed tasks in the project below.<br>
-<br>
 
 ### Setup of GitHub Actions and creation of workflow YAML file
 First implemented the setup for GitHub Actions: The creation of a .github/workflows folder with a workflow YML file.<br>
@@ -91,6 +88,25 @@ The name of the workflow as well as the events, the job and the runner including
 If you check the Actions tab on the GitHub website, you will see failed workflows, as the workflow has been triggered but not yet fully implemented.
 
 ![Failed workflows](https://github.com/user-attachments/assets/c0988e0a-4227-4744-bcfa-7da8ee302a27)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<br>
+<br>
+
+
+### Implementing workflow steps
+After the workflow file was created, the steps were added:
+
+![3 Adding Steps to workflow](https://github.com/user-attachments/assets/7be106b4-808f-4422-b555-3a19ca4ce973)
+
+The changes were pushed into the repository. This triggered the workflow again.<br>
+It is now running successfully thanks to the implemented steps:
+
+![4 Workflow successful](https://github.com/user-attachments/assets/3f758410-a722-4f49-bfaf-b319a38ba068)
+
+After clicking on the build job, exact details of the individual steps can be viewed:
+
+![5 Details of Workflow Steps](https://github.com/user-attachments/assets/f1720b37-6542-4e02-b174-59a6d89d619f)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <br>
