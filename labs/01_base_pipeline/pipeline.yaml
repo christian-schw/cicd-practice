@@ -4,8 +4,13 @@ kind: Pipeline
 metadata:  
   name: hello-world-pipeline
 spec:
+  params:
+    - name: message
   tasks:
-    - name: hello
+    - name: echo
       taskRef:
-        name: hello-world
+        name: echo
+      params:
+        - name: message
+          value: "$(params.message)"
 ...
