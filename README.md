@@ -196,6 +196,42 @@ Output of the Pipeline:<br>
 
 ![9 Output of updated pipeline](https://github.com/user-attachments/assets/af834715-e163-4a79-b51e-14cdce40ef29)
 
+To embellish the whole thing a little, another Pipeline is added: cd-pipeline with checkout Task.<br>
+The checkout task with parameters and the clone command have been added to the tasks.yaml file:<br>
+
+![10 Add task checkout to tasks yaml](https://github.com/user-attachments/assets/8a9e3d7c-4ade-4443-961c-e8699b3ac965)
+
+The output after applying to the cluster with the following command:<br>
+
+```
+kubectl apply -f tasks.yaml
+```
+
+![11 Apply new tasks yaml](https://github.com/user-attachments/assets/c8d62118-2ca9-46fb-aa39-46b62c675da1)
+
+The pipeline.yaml file has been extended by the cd-pipeline:<br>
+
+![12 Add cd pipeline](https://github.com/user-attachments/assets/21f4728c-2d08-4875-a2fc-f1a70e565f1b)
+
+The output after applying to the cluster with the following command:<br>
+
+```
+kubectl apply -f pipeline.yaml
+```
+
+![13 Apply new pipeline](https://github.com/user-attachments/assets/62878edc-b8c9-4560-9a21-d71abe489f22)
+
+If you execute the new Pipeline with the following command, the output appears:
+
+```
+tkn pipeline start cd-pipeline \
+    --showlog \
+    -p repo-url="https://github.com/christian-schw/cicd-practice-project.git" \
+    -p branch="main"
+```
+
+![14 Output new pipeline checkout](https://github.com/user-attachments/assets/359156e7-05c9-439e-985c-c3c280738c72)
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <br>
 <br>
