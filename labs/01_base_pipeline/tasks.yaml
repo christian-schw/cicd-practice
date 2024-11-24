@@ -35,4 +35,20 @@ spec:
       image: bitnami/git:latest
       command: [git]
       args: ["clone", "--branch", "$(params.branch)", "$(params.repo-url)"]
+
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: lint
+spec:
+  description: This task will run flake8 on the provided input
+  steps:
+    - name: lint
+      image: docker.io/alpine/flake8@sha256:bb280bf2af4a434be912f25bbcb6c79ea4d735ed3c8e259f96c405998920871f
+      # To make it easy: Lint script is copied from workflow.yml / previous project task
+      # TODO: Fix FileNotFoundError in this task
+      script: |
+        flake8 service --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 service --count --max-complexity=10 --max-line-length=127 --statistics
 ...

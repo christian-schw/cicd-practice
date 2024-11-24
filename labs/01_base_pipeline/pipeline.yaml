@@ -33,4 +33,19 @@ spec:
           value: "$(params.repo-url)"
         - name: branch
           value: "$(params.branch)"
+    
+    - name: echo-linting
+      taskRef:
+        name: echo
+      params:
+        - name: message
+          value: "Calling Flake8 linter"
+      runAfter: 
+        - clone
+
+    - name: lint
+      taskRef:
+        name: lint
+      runAfter:
+        - echo-linting
 ...
