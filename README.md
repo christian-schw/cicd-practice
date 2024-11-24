@@ -20,8 +20,8 @@
     <li>
       <a href="#what-i-have-done-as-part-of-the-project">What I have done as part of the project</a></li>
       <ul>
-        <li><a href="#setup-of-github-actions-and-creation-of-workflow-yaml-file">Setup of GitHub Actions and creation of workflow YAML file</a></li>
-        <li><a href="#implementing-workflow-steps">Implementing workflow steps</a></li>
+        <li><a href="#task-1---setup-of-github-actions-and-implement-a-workflow">Task 1 - Setup of GitHub Actions and implement a workflow</a></li>
+        <li><a href="#task-2---building-a-tekton-pipeline">Task 2 - Building a Tekton Pipeline</a></li>
       </ul>
     </li>
     <li><a href="#getting-started">Getting Started</a></li>
@@ -65,10 +65,10 @@ Course Provider: IBM<br>
 <br>
 
 ### Tech Stack
-With regard to my role:
+With regard to my role:<br>
 TODO: Insert Tech Stack
-- GitHub Actions
-- XXXXX
+- CI/CD Tool: GitHub Actions
+- CI/CD Tool: Tekton
 - IBM Cloud IDE (based on Theia and Container)
 - XXXXX
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -79,7 +79,7 @@ TODO: Insert Tech Stack
 
 ## What I have done as part of the project
 
-### Setup of GitHub Actions and creation of workflow YAML file
+### Task 1 - Setup of GitHub Actions and implement a workflow
 First implemented the setup for GitHub Actions: The creation of a .github/workflows folder with a workflow YML file.<br>
 The name of the workflow as well as the events, the job and the runner including the container were defined.<br>
 
@@ -89,12 +89,6 @@ If you check the Actions tab on the GitHub website, you will see failed workflow
 
 ![Failed workflows](https://github.com/user-attachments/assets/c0988e0a-4227-4744-bcfa-7da8ee302a27)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-<br>
-<br>
-
-
-### Implementing workflow steps
 After the workflow file was created, the steps were added:
 
 ![3 Adding Steps to workflow](https://github.com/user-attachments/assets/7be106b4-808f-4422-b555-3a19ca4ce973)
@@ -112,6 +106,13 @@ After clicking on the build job, exact details of the individual steps can be vi
 <br>
 <br>
 
+
+### Task 2 - Building a Tekton Pipeline
+TODO: Insert text
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<br>
+<br>
 
 
 ## Getting Started
