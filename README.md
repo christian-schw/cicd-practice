@@ -153,6 +153,49 @@ Output of the Pipeline:
 
 ![5 Run pipeline and display output](https://github.com/user-attachments/assets/ffafdd0b-b44f-4341-ae94-328388339d2a)
 
+Parameters are now added to make the pipeline more flexible.<br>
+Both the task and the pipeline are changed for this.<br>
+<br>
+The modified tasks.yaml file:<br>
+
+![6 Add params to task](https://github.com/user-attachments/assets/a20a242e-1ad7-4f01-a71e-44a01a111414)
+
+The changes are then applied to the cluster with the following command:<br>
+
+```
+kubectl apply -f tasks.yaml
+```
+
+The Task has been successfully created:<br>
+
+![7 Task created](https://github.com/user-attachments/assets/2c3c3eca-24ab-4c3e-9326-fed60f870597)
+
+The modified pipeline.yaml file:<br>
+
+![7 5 Add params to pipeline yaml](https://github.com/user-attachments/assets/3419235b-9cb6-47f7-b614-d5dafd1ee0b0)
+
+The changes are then applied to the cluster with the following command:<br>
+
+```
+kubectl apply -f pipeline.yaml
+```
+
+The Pipeline has been successfully created:<br>
+
+![8 Pipeline update configured](https://github.com/user-attachments/assets/a8ca390e-5347-416a-a8dd-846b652f42b3)
+
+The Pipeline is now executed with the following command:<br>
+
+```
+tkn pipeline start hello-world-pipeline \
+  --showlog \
+  -p message="Hello Tekton! I added params to pipeline!"
+```
+
+Output of the Pipeline:<br>
+
+![9 Output of updated pipeline](https://github.com/user-attachments/assets/af834715-e163-4a79-b51e-14cdce40ef29)
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <br>
 <br>
