@@ -69,6 +69,7 @@ With regard to my role:<br>
 TODO: Insert Tech Stack
 - CI/CD Tool: GitHub Actions
 - CI/CD Tool: Tekton
+- Container Orchestration: Kubernetes
 - IBM Cloud IDE (based on Theia and Container)
 - XXXXX
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -108,7 +109,49 @@ After clicking on the build job, exact details of the individual steps can be vi
 
 
 ### Task 2 - Building a Tekton Pipeline
-TODO: Insert text
+The first step of the task was to create a traditional Hello World program / pipeline in Tekton.<br>
+<br>
+The Tekton object "Task" is used for this.<br>
+According to the Tekton documentation, a Task is a collection of Steps that you define and arrange in a specific order of execution as part of your continuous integration flow.<br>
+<br>
+The corresponding Task has been implemented in the tasks.yaml file:<br>
+
+![Implement tasks yaml](https://github.com/user-attachments/assets/30aea9c6-0edb-43df-8f59-cd2fec5dfa5e)
+
+It is then applied to the cluster with the following command:<br>
+
+```
+kubectl apply -f tasks.yaml
+```
+
+The Task has been successfully created:<br>
+
+![2 Task created](https://github.com/user-attachments/assets/505756ef-3db7-44ba-8242-5aa85265b1db)
+
+Next, a Tekton object called "Pipeline" is created that uses and executes the Task object.<br>
+The implementation is in the pipeline.yaml:<br>
+
+![3 Implement pipeline yaml](https://github.com/user-attachments/assets/dfa30ea1-423c-4bb8-8059-e14211e1b187)
+
+It is then applied to the cluster with the following command:<br>
+
+```
+kubectl apply -f pipeline.yaml
+```
+
+The Pipeline has been successfully created:<br>
+
+![4 Pipeline created](https://github.com/user-attachments/assets/2c57f1a8-3427-44ba-843a-ff273dd3030d)
+
+The Pipeline is now executed with the following command:<br>
+
+```
+tkn pipeline start --showlog hello-world-pipeline
+```
+
+Output of the Pipeline:
+
+![5 Run pipeline and display output](https://github.com/user-attachments/assets/ffafdd0b-b44f-4341-ae94-328388339d2a)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <br>
