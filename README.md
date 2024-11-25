@@ -1,7 +1,7 @@
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a id="readme-top"></a>
 
-# Build a CI/CD Pipeline
+# Building CI/CD Pipelines
 <!-- TABLE OF CONTENTS -->
 <details open>
   <summary>Table of Contents</summary>
@@ -22,6 +22,7 @@
       <ul>
         <li><a href="#task-1---setup-of-github-actions-and-implement-a-workflow">Task 1 - Setup of GitHub Actions and implement a workflow</a></li>
         <li><a href="#task-2---building-a-tekton-pipeline">Task 2 - Building a Tekton Pipeline</a></li>
+        <li><a href="#task-3---adding-github-triggers">Task 3 - Adding GitHub Triggers</a></li>
       </ul>
     </li>
     <li><a href="#getting-started">Getting Started</a></li>
@@ -250,6 +251,14 @@ tkn pipeline start cd-pipeline \
 ```
 
 ![16 Output placeholder echo pipeline](https://github.com/user-attachments/assets/b14d6de8-fced-4a9b-9474-538b2e27f67b)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<br>
+<br>
+
+
+### Task 3 - Adding GitHub Triggers
+TODO: XXXX
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <br>
