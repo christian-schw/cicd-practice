@@ -232,6 +232,25 @@ tkn pipeline start cd-pipeline \
 
 ![14 Output new pipeline checkout](https://github.com/user-attachments/assets/359156e7-05c9-439e-985c-c3c280738c72)
 
+As a final exercise in this section, four placeholder Tasks (lint, tests, build and deploy) are added to the cd-pipeline.<br>
+The echo Task already created is used as a placeholder.<br>
+The placeholders are replaced in the following sections below.<br>
+<br>
+The modified pipeline.yaml:<br>
+
+![15 Add placeholder echo tasks to pipeline](https://github.com/user-attachments/assets/119c1096-7a1d-42df-b4cb-7de141144ab5)
+
+The output after applying the changes to the cluster and executing the following command:
+
+```
+tkn pipeline start cd-pipeline \
+    --showlog \
+    -p repo-url="https://github.com/christian-schw/cicd-practice-project.git" \
+    -p branch="main"
+```
+
+![16 Output placeholder echo pipeline](https://github.com/user-attachments/assets/b14d6de8-fced-4a9b-9474-538b2e27f67b)
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <br>
 <br>
