@@ -33,19 +33,41 @@ spec:
           value: "$(params.repo-url)"
         - name: branch
           value: "$(params.branch)"
-    
-    - name: echo-linting
+
+    # Task of project: Add placeholder Tasks with reference to echo Task
+    - name: lint
+      runAfter:
+        - clone
       taskRef:
         name: echo
       params:
         - name: message
-          value: "Calling Flake8 linter"
-      runAfter: 
-        - clone
-
-    - name: lint
-      taskRef:
-        name: lint
+          value: "Calling Flake8 linter..."
+    
+    - name: tests
       runAfter:
-        - echo-linting
+        - lint
+      taskRef:
+        name: echo
+      params:
+        - name: message
+          value: "Running unit tests with PyUnit"
+    
+    - name: build
+      runAfter:
+        - tests
+      taskRef:
+        name: echo
+      params:
+        - name: message
+          value: "Building image for $(params.repo-url)..."
+    
+    - name: deploy
+      runAfter:
+        - build
+      taskRef:
+        name: echo
+      params:
+        - name: message
+          value: "Deploying $(params.branch) branch of $(params.repo-url)..."
 ...
