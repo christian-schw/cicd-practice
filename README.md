@@ -23,6 +23,7 @@
         <li><a href="#task-1---setup-of-github-actions-and-implement-a-workflow">Task 1 - Setup of GitHub Actions and implement a workflow</a></li>
         <li><a href="#task-2---building-a-tekton-pipeline">Task 2 - Building a Tekton Pipeline</a></li>
         <li><a href="#task-3---adding-github-triggers">Task 3 - Adding GitHub Triggers</a></li>
+        <li><a href="#task-4---using-tekton-continous-delivery-catalog">Task 4 - Using Tekton Continous Delivery Catalog</a></li>
       </ul>
     </li>
     <li><a href="#getting-started">Getting Started</a></li>
@@ -258,7 +259,67 @@ tkn pipeline start cd-pipeline \
 
 
 ### Task 3 - Adding GitHub Triggers
-TODO: XXXX
+Since it is tedious and offers limited possibilities to run the pipeline manually, Tekton objects EventListener, TriggerBinding and TriggerTemplate are created.<br>
+This makes it possible for the pipeline to be started automatically by external events (e.g. changes in the GitHub repository).<br>
+The corresponding files are located in the folder: ../labs/02_add_git_trigger/<br>
+<br>
+First, the EventListener was implemented to be able to listen to events on GitHub:<br>
+
+![1 Add eventlistener yaml](https://github.com/user-attachments/assets/c91f1f49-1b87-4d7c-b567-20181de811bb)
+
+The output after applying to the cluster with the following command:<br>
+
+```
+kubectl apply -f eventlistener.yaml
+```
+
+![2 Verify tekton eventlistener](https://github.com/user-attachments/assets/57509883-3388-435d-b4e2-551c7f769aee)
+
+Next, the TriggerBinding was implemented to be able to bind the incoming data from the event to pass on to the pipeline:<br>
+
+![3 Add triggerbinding yaml](https://github.com/user-attachments/assets/9a358a21-f95b-4ce7-a599-be8238fe57af)
+
+The output after applying to the cluster with the following command:<br>
+
+```
+kubectl apply -f triggerbinding.yaml
+```
+
+![4 Verify tekton triggerbinding](https://github.com/user-attachments/assets/b0a16e83-0763-49db-8925-fc7ab13b0181)
+
+The TriggerTemplate takes the parameters passed in from the TriggerBinding and creates a PipelineRun to start the pipeline:<br>
+
+![5 Implement triggertemplate yaml](https://github.com/user-attachments/assets/029bb60c-a6c2-42ab-8824-5d9e7e006fa9)
+
+The output after applying to the cluster with the following command:<br>
+
+```
+kubectl apply -f triggertemplate.yaml
+```
+
+![6 Verify tekton triggertemplate](https://github.com/user-attachments/assets/6368c9d0-6746-4d51-9f41-fa8c00877d54)
+
+To test the Pipeline Run, the curl command is used (Note: localhost port of IBM Cloud IDE is 8090):<br>
+
+```
+curl -X POST http://localhost:8090 \
+  -H 'Content-Type: application/json' \
+  -d '{"ref":"main","repository":{"url":"https://github.com/christian-schw/cicd-practice-project.git"}}'
+```
+
+The output:<br>
+
+![7 start pipelinerun](https://github.com/user-attachments/assets/10f0b010-47fe-47c8-bce8-38bf20a6cb1b)
+
+The red marked PipelineRun is the pipeline in this task. Everything works!<br>
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<br>
+<br>
+
+
+### Task 4 - Using Tekton Continous Delivery Catalog
+TODO: XXXX<br>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <br>
