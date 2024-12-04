@@ -1,7 +1,8 @@
+---
 apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
-  name: <place-name-here>
+  name: cd-template
 spec:
   params:
   # Add parameters here
@@ -12,3 +13,4 @@ spec:
         generateName: cd-pipeline-run-
       spec:
       # Add pipeline definition here
+...
