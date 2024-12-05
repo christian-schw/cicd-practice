@@ -24,6 +24,7 @@
         <li><a href="#task-2---building-a-tekton-pipeline">Task 2 - Building a Tekton Pipeline</a></li>
         <li><a href="#task-3---adding-github-triggers">Task 3 - Adding GitHub Triggers</a></li>
         <li><a href="#task-4---using-tekton-continous-delivery-catalog">Task 4 - Using Tekton Continous Delivery Catalog</a></li>
+        <li><a href="#task-5---integrating-unit-test-automation">Task 5 - Integrating Unit Test Automation</a></li>
       </ul>
     </li>
     <li><a href="#getting-started">Getting Started</a></li>
@@ -319,6 +320,71 @@ The red marked PipelineRun is the pipeline in this task. Everything works!<br>
 
 
 ### Task 4 - Using Tekton Continous Delivery Catalog
+The self-created clone task is very small and hardly robust.<br>
+To improve the whole thing, a prefabricated task in the Tekton Hub is integrated into our pipeline.<br>
+<br>
+
+![1 Tekton Hub git clone](https://github.com/user-attachments/assets/a25361d2-578a-476b-849b-9a454aaa65df)
+
+With the help of the Tekton CLI, this task is installed in our cluster in the current active namespace:<br>
+
+![2 Tekton Hub install git clone](https://github.com/user-attachments/assets/bae64e74-94a7-43e7-b5f3-1b19baa10ffe)
+
+The task requires two inputs:
+- The URL of a Git repo to clone ('url' param)
+- A workspace / disk volume that can be shared across tasks ('output' param)
+
+To create the workspace, the PersistentVolumeClaim file (pvc.yaml) already predefined by the IBM course is used:<br>
+
+![3 provided pvc yaml](https://github.com/user-attachments/assets/303aa1a0-6e2e-4bf1-9a2c-4b1be702904e)
+
+The output after applying to the cluster with the following command:<br>
+
+```
+kubectl apply -f pvc.yaml
+```
+
+![4 verifying pvc](https://github.com/user-attachments/assets/810e265c-79be-445b-9235-8a6285f46bb7)
+
+This persistent volume can now be referenced by its name 'pipelinerun-pvc' when creating workspaces for the Tekton tasks.<br>
+<br>
+The pipeline.yaml is then changed so that the Tekton Hub Task is now used instead of the self-created task.<br>
+At the same time, the workspace is defined (as a required parameter according to Tekton Hub):<br>
+
+![5 changing pipeline yaml](https://github.com/user-attachments/assets/fe5b4d7a-9b8b-4ef8-ba07-53bafac6d0d7)
+
+The output after applying to the cluster with the following command:<br>
+
+```
+kubectl apply -f pipeline.yaml
+```
+
+![6 verifying pipeline](https://github.com/user-attachments/assets/420e0a51-436b-44bf-83f6-3aa8dcc68a94)
+
+A PipelineRun is then created to run the pipeline:<br>
+
+```
+tkn pipeline start cd-pipeline \
+    -p repo-url="https://github.com/christian-schw/cicd-practice-project.git" \
+    -p branch="main" \
+    -w name=pipeline-workspace,claimName=pipelinerun-pvc \
+    --showlog
+```
+
+The logs already show significantly more information than before:<br>
+
+![7 starting the pipeline](https://github.com/user-attachments/assets/1c4c749c-9451-4a86-a058-c9d5bba469fe)
+
+The pipeline was successfully executed and the Tekton Hub Task integrated:<br>
+
+![8 pipeline succeeded](https://github.com/user-attachments/assets/da2d626b-01e5-4f06-89a4-a1a43c568a2b)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<br>
+<br>
+
+
+### Task 5 - Integrating Unit Test Automation
 TODO: XXXX<br>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
