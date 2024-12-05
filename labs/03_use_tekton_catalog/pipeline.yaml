@@ -3,6 +3,8 @@ kind: Pipeline
 metadata:  
   name: cd-pipeline
 spec:
+  workspaces: 
+    - name: pipeline-workspace
   params:
     - name: repo-url
     - name: branch
@@ -10,11 +12,14 @@ spec:
   tasks:
     - name: clone
       taskRef:
-        name: checkout
-      params:
-      - name: repo-url
+        name: git-clone  # Reference switched from own Task to Tekton Hub git-clone Task
+      workspaces:
+        - name: output  # Required input param for Tekton Hub git-clone
+          workspace: pipeline-workspace
+      params:  # Changed param names to required git-clone Task input names
+      - name: url  # From repo-url to url
         value: "$(params.repo-url)"
-      - name: branch
+      - name: branch  # From branch to revision
         value: "$(params.branch)"
 
     - name: lint
