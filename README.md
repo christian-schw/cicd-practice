@@ -41,7 +41,13 @@ This repository was created as part of IBM's "Continuous Integration and Deliver
 It's a project about building a CI/CD pipeline.<br>
 Much of the code was cloned from the IBM repository: https://github.com/ibm-developer-skills-network/wtecc-CICD_PracticeCode<br>
 <br>
-TODO: Insert short intro with picture of pipeline
+Preview images of the project:<br>
+
+![7 start pipelinerun](https://github.com/user-attachments/assets/10f0b010-47fe-47c8-bce8-38bf20a6cb1b)
+
+![1 Tekton Hub git clone](https://github.com/user-attachments/assets/a25361d2-578a-476b-849b-9a454aaa65df)
+
+![3 running pipeline yaml](https://github.com/user-attachments/assets/b885e717-6936-4095-8f71-2e306d728e9f)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <br>
@@ -70,8 +76,7 @@ Course Provider: IBM<br>
 <br>
 
 ### Tech Stack
-With regard to my role:<br>
-TODO: Insert Tech Stack
+With regard to my role:
 - CI/CD Tool: GitHub Actions
 - CI/CD Tool: Tekton
 - Container Orchestration: Kubernetes
@@ -520,8 +525,45 @@ To make sure that everything worked, we also check whether the image exists in t
 
 
 ### Task 7 - Deploy to OpenShift
-TODO: XXXX<br>
+The last step of this pipeline: Deploy the Docker image to an OpenShift cluster.<br>
+There is an already defined task for this in the Tekton Hub: openshift-client.<br>
+<br>
+First check whether the (cluster) task openshift-client is already installed.<br>
+The output after the following command:<br>
 
+```
+tkn clustertask ls
+```
+
+![1 check for openshift-client clustertask](https://github.com/user-attachments/assets/f97518e4-20ec-4800-9d3c-d8035c0100ab)
+
+It's already installed.<br>
+The task reference in the pipeline is then changed to the openshift-client task (folder: /labs/06_deploy_to_kubernetes/):<br>
+
+![2 part 1 change pipeline yaml](https://github.com/user-attachments/assets/66778e81-cb64-4978-b11a-689d99607f86)
+
+![2 part 2 change pipeline yaml](https://github.com/user-attachments/assets/f1d9bff5-a6e9-4681-a25a-1f46344685ae)
+
+The extended pipeline is now executed with the following command and the logs are examined:<br>
+
+```
+tkn pipeline start cd-pipeline \
+    -p repo-url="https://github.com/christian-schw/cicd-practice-project.git" \
+    -p branch=main \
+    -p app-name=hitcounter \
+    -p build-image=image-registry.openshift-image-registry.svc:5000/$SN_ICR_NAMESPACE/tekton-lab:latest \
+    -w name=pipeline-workspace,claimName=pipelinerun-pvc \
+    --showlog
+```
+
+![3 running pipeline yaml](https://github.com/user-attachments/assets/b885e717-6936-4095-8f71-2e306d728e9f)
+
+Finally, check whether the deployment has worked.<br>
+
+![4 verifying successful deployment](https://github.com/user-attachments/assets/1f05864c-145c-48eb-aa0e-a8b7ea3bd1d1)
+
+The pod of the deployment is running which means the application has been successfully deployed!<br>
+The pipeline is now fully implemented and the practice project is complete.<br>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <br>
 <br>
