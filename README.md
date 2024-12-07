@@ -26,6 +26,7 @@
         <li><a href="#task-4---using-tekton-continous-delivery-catalog">Task 4 - Using Tekton Continous Delivery Catalog</a></li>
         <li><a href="#task-5---integrating-linting-and-unit-test-automation">Task 5 - Integrating Linting and Unit Test Automation</a></li>
         <li><a href="#task-6---building-an-image">Task 6 - Building an Image</a></li>
+        <li><a href="#task-7---deploy-to-openshift">Task 7 - Deploy to OpenShift</a></li>
       </ul>
     </li>
     <li><a href="#getting-started">Getting Started</a></li>
@@ -61,7 +62,7 @@ Course Provider: IBM<br>
 - Client: Myself
 - Project Goal: Building a CI/CD pipeline. Gain a deeper understanding of Continous Integration and Continous Delivery.
 - Number of Project Participants: 1 (Cloned repository of IBM. Developed the rest on my own)
-- Time Period: November, 2024
+- Time Period: November - December, 2024
 - Industry / Area: DevOps
 - Role: Developer
 - Languages: English
@@ -74,8 +75,8 @@ TODO: Insert Tech Stack
 - CI/CD Tool: GitHub Actions
 - CI/CD Tool: Tekton
 - Container Orchestration: Kubernetes
+- Container Orchestration: Red Hat OpenShift
 - IBM Cloud IDE (based on Theia and Container)
-- XXXXX
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <br>
 <br>
@@ -459,6 +460,66 @@ Everything works as intended!<br>
 
 
 ### Task 6 - Building an Image
+The next placeholder task in the pipeline to be replaced is the build task.<br>
+Before the application can be deployed, it's necessary to build a Docker image and push it to an image registry (in this case: OpenShift Image Registry).<br>
+The Tekton Hub buildah task is used for this.<br>
+<br>
+First of all, it is necessary to check whether the task has already been installed in the cluster.<br>
+This step was previously omitted in the previous tasks (for learning reasons).<br>
+<br>
+Tasks that are available for pipelines in the entire cluster are called ClusterTasks in Tekton.<br>
+According to the Tekton documentation, ClusterTasks are deprecated and cluster resolvers should be used instead.<br>
+A ClusterTask is used / required in the practice project, so a ClusterTask is also used here.<br>
+<br>
+The output after running the pipeline with the following command:<br>
+
+```
+tkn clustertask ls
+```
+
+![1 Check for buildah ClusterTask](https://github.com/user-attachments/assets/1e3041d1-b1f7-4cc4-aca0-0bf567902416)
+
+The buildah task is listed. This means that it has already been installed and can be used for the pipeline.<br>
+The task reference in the pipeline is then changed to the buildah task (folder: /labs/05_build_an_image/):<br>
+
+![2 part 1 of changing pipeline yaml](https://github.com/user-attachments/assets/67606e1c-de3b-46b5-960a-ba380f7c2d73)
+
+![2 part 2 of changing pipeline yaml](https://github.com/user-attachments/assets/b45b3d26-b91d-4839-8eba-fc3336bdfcbb)
+
+The changes are then applied to the cluster with the following command:<br>
+
+```
+kubectl apply -f pipeline.yaml
+```
+
+It has also been checked whether the PVC for the workspace exists.<br>
+The output:<br>
+
+![3 applying pipeline and verifying pvc](https://github.com/user-attachments/assets/8a8fec69-9635-4124-831c-645f2d255e50)
+
+The extended pipeline is now executed with the following command and the logs are examined:<br>
+
+```
+tkn pipeline start cd-pipeline \
+    -p repo-url="https://github.com/christian-schw/cicd-practice-project.git" \
+    -p branch=main \
+    -p build-image=image-registry.openshift-image-registry.svc:5000/$SN_ICR_NAMESPACE/tekton-lab:latest \
+    -w name=pipeline-workspace,claimName=pipelinerun-pvc \
+    --showlog
+```
+
+![4 running pipeline](https://github.com/user-attachments/assets/fdcef62c-886d-440b-9493-6c9a9f7427b8)
+
+To make sure that everything worked, we also check whether the image exists in the OpenShift image registry - and yes, it does! Everything fits.<br>
+
+![5 verifying image in openshift image registry](https://github.com/user-attachments/assets/cfbd3bf6-c8c7-45d3-a540-daa11c12303c)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<br>
+<br>
+
+
+### Task 7 - Deploy to OpenShift
 TODO: XXXX<br>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
