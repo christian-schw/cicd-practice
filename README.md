@@ -24,7 +24,8 @@
         <li><a href="#task-2---building-a-tekton-pipeline">Task 2 - Building a Tekton Pipeline</a></li>
         <li><a href="#task-3---adding-github-triggers">Task 3 - Adding GitHub Triggers</a></li>
         <li><a href="#task-4---using-tekton-continous-delivery-catalog">Task 4 - Using Tekton Continous Delivery Catalog</a></li>
-        <li><a href="#task-5---integrating-unit-test-automation">Task 5 - Integrating Unit Test Automation</a></li>
+        <li><a href="#task-5---integrating-linting-and-unit-test-automation">Task 5 - Integrating Linting and Unit Test Automation</a></li>
+        <li><a href="#task-6---building-an-image">Task 6 - Building an Image</a></li>
       </ul>
     </li>
     <li><a href="#getting-started">Getting Started</a></li>
@@ -384,7 +385,80 @@ The pipeline was successfully executed and the Tekton Hub Task integrated:<br>
 <br>
 
 
-### Task 5 - Integrating Unit Test Automation
+### Task 5 - Integrating Linting and Unit Test Automation
+Two further tasks in the pipeline (folder: /labs/04_unit_test_automation/) are replaced, which previously acted as placeholders: lint and tests.<br>
+<br>
+First the lint task.<br>
+Flake8 is used for the linting. There is already a predefined task for this in the Tekton Hub, which will be installed:<br>
+
+![1 installing flake8](https://github.com/user-attachments/assets/09e86e6a-d7f3-4a9c-a3b1-3d0e4c34c62f)
+
+The existing task reference in the pipeline is adapted and the corresponding required task parameters are implemented:<br>
+
+![2 implemented pipeline yaml labs04](https://github.com/user-attachments/assets/0a6e1168-c994-4372-b54c-7a437e4b3671)
+
+The output after applying to the cluster with the following command:<br>
+
+```
+kubectl apply -f pipeline.yaml
+```
+
+![3 apply pipeline yaml](https://github.com/user-attachments/assets/189e0932-d56f-4e29-9bbe-acfea263e8f2)
+
+If you run the pipeline with the following command, you will see that the new task is working and is being executed:<br>
+
+```
+tkn pipeline start cd-pipeline \
+    -p repo-url="https://github.com/christian-schw/cicd-practice-project.git" \
+    -p branch="main" \
+    -w name=pipeline-workspace,claimName=pipelinerun-pvc \
+    --showlog
+```
+
+![4 running pipeline with flake8 task](https://github.com/user-attachments/assets/96285cfb-5f10-4cdf-af1e-6f992d3be3d2)
+
+Linting is done, now the unit test task will be implemented.<br>
+<br>
+The testing framework nose is used.<br>
+However, there is nothing ready-made for this in the Tekton Hub.<br>
+This means that I have to define this task myself:<br>
+
+![5 adding nose task](https://github.com/user-attachments/assets/74ffb9f6-2347-4265-b567-b6232d97dcfd)
+
+The existing task reference in the pipeline is adapted and the corresponding required task parameters are implemented:<br>
+
+![6 changing taskref in pipeline yaml](https://github.com/user-attachments/assets/cf369b01-a278-412f-a67e-0128ac3ae93a)
+
+The changes are then applied to the cluster with the following command:<br>
+
+```
+kubectl apply -f pipeline.yaml
+```
+
+The output after running the pipeline with the following command:<br>
+
+```
+tkn pipeline start cd-pipeline \
+    -p repo-url="https://github.com/christian-schw/cicd-practice-project.git" \
+    -p branch="main" \
+    -w name=pipeline-workspace,claimName=pipelinerun-pvc \
+    --showlog
+```
+
+![7 running pipeline](https://github.com/user-attachments/assets/1a3e745c-5864-459e-a6ee-bf528e20cd4e)
+
+The status of the PipelineRun object is succeeded.<br>
+Everything works as intended!<br>
+
+![8 status succeeded pipelinerun](https://github.com/user-attachments/assets/0525c7b3-5d86-4689-8329-3f6c1570619d)
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<br>
+<br>
+
+
+### Task 6 - Building an Image
 TODO: XXXX<br>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
